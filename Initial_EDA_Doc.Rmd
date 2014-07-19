@@ -1,0 +1,358 @@
+Swin Research Project  
+Redevelopment and Land Use In Melbourne  
+
+# Data Set: "redev2004_2012_SA1"
+
+This document describes the dataset provided by Stephen Glackin named "redev2004_2012_SA1".  
+
+This dataset contains 81,426 cases, where each case is a property lot that has been redeveloped in the period 2004 to 2012. 
+
+There are 45 variables.
+
+File size: 23,685 kb
+
+# Import data
+
+```{r}
+
+`redev2004_2012_SA1.(1)` <- read.csv("C:/Users/Anna Maria/Desktop/Dropbox/Research Project - SWIN/data/data_one/redev2004_2012_SA1 (1).csv")
+data <- `redev2004_2012_SA1.(1)`
+
+```
+---
+
+# Variables  
+
+# LGA Name
+
+Name of the local government area.
+
+This dataset includes 31 Melbourne LGAs. The number of cases per LGA range from 660 for Yarra to 5572 for Hume.
+
+See ABS Fact Sheet for additional information.
+
+# SA1_Main 11
+
+SA1s are build from whole Mesh Blocks. There are 54,805 SA1s covering Australia without gaps or overlaps. They are designed as the smallest area of output for the Census of Population and Housing. SA1s do not align with LGAs, although they do closely reflect them.
+
+There are 2 coding structures for SA1s:
+
+
+SA1s are not named. They are identified either by an 11-digit fully hierarchical code, or by a truncated 7-digit code comprising the S/T, SA2 and SA1 identifiers. The SA1 identifier is a 2-digit code, assigned within an SA2. An SA1 code is only unique within an S/T when it is preceded by the S/T identifier.
+
+11-digit Code
+
+An 11-digit SA1 code is fully hierarchical, and comprises: S/T identifier, SA4 identifier, SA3 identifier, SA2 identifier and a SA1 identifier.
+
+Example:
+
+SA1 50302104118
+S/T  SA4	SA3	SA2	SA1
+5	03	02	1041	18
+
+7-digit Code
+
+A 7-digit SA1 code is not fully hierarchical and comprises: S/T identifier, SA2 identifier and SA1 identifier.
+
+Example:
+
+SA1 5104118
+S/T  SA2	SA1
+5	1041	18
+
+[ http://www.abs.gov.au/ausstats/abs@.nsf/Latestproducts/7CAFD05E79EB6F81CA257801000C64CD?opendocument]
+
+This dataset contains 8225 SA1s.
+
+# SA1_7dig11
+
+See Comments above
+
+# SA2_main11
+
+Aggregate of SA1s  
+
+This dataset contains 269 SA2s.
+
+# SA2_5dig1
+
+See above  
+
+# SA2_name
+
+See above. The names of the SA2 areas.
+
+#SA3_code
+
+There are 40 SA3s in this dataaset.
+
+#SA3_name
+
+See above.  
+
+#SA4_Code
+
+#SA4_name
+
+There are 10 SA4s in this dataset; although SA4 Hume has only one case. Each of the other SA4s have from 5133 to 16426 cases.
+
+#Gcc_Code
+
+All except 1 case is coded to GCC "Greater Melbourne". There is 1 case coded to "Rest of Vic"
+
+#Gcc_name
+
+See above
+
+#Ste_Code1
+
+State code -all cases coded to Victoria
+
+#Ste_name
+
+See above
+
+#Albers_sqm
+
+Stephen advised this is the area of each SA1 - this is confirmed by repetition of values in dataset.
+
+Google search does not show definition / explanation of term.
+
+#State_Code 2010
+
+All values are 2
+
+# LGA Code 2010
+
+Values range from 20170 to 27400.
+
+#LGA Name 2010
+
+Still 31 LGAs, although some small changes in the numbers for each.
+
+Suggest it relates to minor changes in LGA Boundaries
+
+[work out code to show differences only]
+
+
+
+```{r}
+library(car)
+
+```
+
+
+```{r}
+
+gwchart <- function(variable) {
+
+  par(mfrow = c(1,2))
+   lab <- deparse(substitute(variable))
+   hist(variable, prob = T, main= paste("Histogram of", lab), xlab = lab)
+   lines(density(variable, na.rm = T))
+   rug(jitter(variable))
+   qqPlot(variable, main= paste("QQplot of", lab))
+   
+ }
+
+
+```
+
+
+
+
+```{r}
+
+
+str(data)
+
+head(data[,c(1:9)])
+
+head(data[,c(10:16)])
+
+head(data[,c(17:21)])
+
+head(data[,c(22:25)])
+
+head(data[,c(26:30)])
+
+head(data[,c(31:34)])
+
+head(data[,c(35:39)])
+
+head(data[,c(40:45)])
+
+names(data[1])
+as.data.frame(table(data[,1]))
+
+names(data[2])
+summary(data[,2])
+
+names(data[3])
+summary(data[,3])
+
+names(data[4])
+summary(data[,4])
+
+names(data[5])
+summary(data[,5])
+
+names(data[6])
+as.data.frame(table(data[,6]))
+
+names(data[7])
+summary(data[,7])
+
+names(data[8])
+as.data.frame(table(data[,8]))
+
+names(data[9])
+summary(data[,9])
+
+names(data[10])
+as.data.frame(table(data[,10]))
+
+names(data[11])
+as.data.frame(table(data[,11]))
+
+names(data[12])
+as.data.frame(table(data[,12]))
+
+names(data[13])
+summary(data[,13])
+
+names(data[14])
+as.data.frame(table(data[,14]))
+
+names(data[15])
+summary(data[,15])
+
+names(data[16])
+summary(data[,16])
+
+names(data[17])
+summary(data[,17])
+
+names(data[18])
+as.data.frame(table(data[,18]))
+
+names(data[19])
+summary((data[,19]))
+as.data.frame(table(data[,19]))
+
+names(data[20])
+summary((data[,20]))
+as.data.frame(table(data[,20]))
+
+names(data[21])
+summary((data[,21]))
+as.data.frame(table(data[,21]))
+
+names(data[22])
+summary((data[,22]))
+as.data.frame(table(data[,22]))
+
+names(data[23])
+summary((data[,23]))
+as.data.frame(table(data[,23]))
+
+names(data[24])
+summary((data[,24]))
+as.data.frame(table(data[,24]))
+
+names(data[25])
+summary((data[,25]))
+as.data.frame(table(data[,25]))
+
+names(data[26])
+summary((data[,26]))
+as.data.frame(table(data[,26]))
+
+names(data[27])
+summary((data[,27]))
+as.data.frame(table(data[,27]))
+
+names(data[28])
+summary((data[,28]))
+as.data.frame(table(data[,28]))
+
+names(data[29])
+summary((data[,29]))
+
+
+
+
+names(data[30])
+summary((data[,30]))
+
+names(data[31])
+summary((data[,31]))
+as.data.frame(table(data[,31]))
+
+names(data[32])
+summary((data[,32]))
+as.data.frame(table(data[,32]))
+
+names(data[33])
+summary((data[,33]))
+
+
+names(data[34])
+summary((data[,34]))
+
+
+names(data[35])
+summary((data[,35]))
+
+
+names(data[36])
+as.data.frame(table(data[,36]))
+
+
+names(data[37])
+as.data.frame(table(data[,37]))
+
+
+names(data[38])
+as.data.frame(table(data[,38]))
+
+
+names(data[39])
+as.data.frame(table(data[,39]))
+
+
+names(data[40])
+as.data.frame(table(data[,40]))
+
+
+names(data[41])
+as.data.frame(table(data[,41]))
+
+names(data[42])
+as.data.frame(table(data[,42]))
+
+names(data[43])
+as.data.frame(table(data[,43]))
+
+names(data[44])
+summary((data[,44]))
+
+names(data[45])
+summary((data[,45]))
+
+
+
+
+```
+
+
+```{r}
+
+
+
+```
+
+
+
+
+
